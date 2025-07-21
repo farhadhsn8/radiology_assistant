@@ -1,0 +1,9 @@
+  {
+    "llm":{
+      "base_url": "https://api.avalai.ir/v1",
+      "api_key": "aa-uuQlus5cGuBWxxcNUl2PPCbERES3grvC5JD30OvCIEHxOD17",
+      "model_name1": "gpt-4o-mini",
+      "model_name": "gpt-4o-mini-2024-07-18",
+      "stream": "False"
+    }   
+  }
