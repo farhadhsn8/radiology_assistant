@@ -1,0 +1,6 @@
+fastapi
+singleton_decorator
+langchain_openai
+numpy
+scipy
+uvicorn

@@ -1,6 +1,6 @@
 from src.services.llm.llm import llm
 
-class Reporter:
+class Reporter_from_voice:
     def __init__(self):
         self.llm_instance = llm()
 
