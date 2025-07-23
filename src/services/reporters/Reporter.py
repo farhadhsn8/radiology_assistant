@@ -26,7 +26,7 @@ class Reporter:
 
     def get_template(self, report_type: str) -> str: # type sample: CT:contrast:abdomen_and_pelvis
         type_parts = report_type.split(":")
-        file_addr = f"src/templates/{type_parts[0]}/{type_parts[1]}/{type_parts[2]}.txt"
+        file_addr = f"assets/templates/{type_parts[0]}/{type_parts[1]}/{type_parts[2]}.txt"
         content = read_text_file(file_addr)
         if "not found" in content:
             raise FileNotFoundError(f"Template file for {report_type} not found.")
@@ -37,7 +37,7 @@ class Reporter:
 
     def get_prompt(self, report_type: str) -> str:
         type_parts = report_type.split(":")
-        file_addr = f"src/prompts/{type_parts[0]}/{type_parts[1]}/{type_parts[2]}.txt"
+        file_addr = f"assets/prompts/{type_parts[0]}/{type_parts[1]}/{type_parts[2]}.txt"
         content = read_text_file(file_addr)
         if "not found" in content:
             raise FileNotFoundError(f"Prompt file for {report_type} not found.")
