@@ -1,7 +1,10 @@
 from src.apis.v1.route import app as api_app
 from fastapi import FastAPI
 
+# ps aux | grep uvicorn
+# kill 376300
+# uvicorn main:app --host 0.0.0.0 --port 5682 --workers 1 
+# nohup uvicorn main:app --host 0.0.0.0 --port 5682 --workers 1 > logs/output.log 2>&1 &
 
-if __name__ == "__main__":
-    app = FastAPI()
-    app.mount("/api", api_app)
+app = FastAPI()
+app.mount("/api", api_app)

@@ -1,9 +1,14 @@
-  {
+{
     "llm":{
-      "base_url": "https://api.avalai.ir/v1",
-      "api_key": "aa-uuQlus5cGuBWxxcNUl2PPCbERES3grvC5JD30OvCIEHxOD17",
+      "base_url": "",
+      "api_key": "",
       "model_name1": "gpt-4o-mini",
       "model_name": "gpt-4o-mini-2024-07-18",
-      "stream": "False"
+      "stream": "False",
+      "temperature": 0.1
+    },
+    "API":{
+      "name": "radio",
+      "key": ""
     }   
   }

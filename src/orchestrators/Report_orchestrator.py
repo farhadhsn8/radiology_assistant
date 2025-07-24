@@ -1,5 +1,6 @@
 from http.client import HTTPException
-from src.services.reporters import Reporter, Reporter_from_voice
+from src.services.reporters.Reporter import Reporter
+from src.services.reporters.Reporter_from_voice import Reporter_from_voice
 
 
 

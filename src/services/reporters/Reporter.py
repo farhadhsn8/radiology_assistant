@@ -52,4 +52,7 @@ class Reporter:
         materials = self.prepare_inputs(raw_text, template, report_type)
         return self.llm_instance.get_answer(materials, prompt)
 
+
+
+       
         
