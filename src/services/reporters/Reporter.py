@@ -1,5 +1,5 @@
 from src.services.llm.llm import llm
-from src.utils.file_processing import read_text_file
+from src.utils.file_processing import read_text_file, extract_field_from_json
 
 
 
@@ -7,11 +7,6 @@ class Reporter:
     def __init__(self):
         self.llm_instance = llm()
 
-    def report(self, message: str):
-        """
-        Report a message to the user.
-        """
-        print(message)
 
     def prepare_inputs(self, raw_text: str, template: str, report_type: str) -> dict:
         input_text = f"""
@@ -22,6 +17,11 @@ class Reporter:
         Patient raw report: {raw_text}
         """
         return input_text
+    
+
+    def post_process(self, out: str) -> str:
+        return extract_field_from_json(out, "final_report") or out
+        
 
 
     def get_template(self, report_type: str) -> str: # type sample: CT:contrast:abdomen_and_pelvis
@@ -50,7 +50,8 @@ class Reporter:
         template = self.get_template(report_type)
         prompt = self.get_prompt(report_type)
         materials = self.prepare_inputs(raw_text, template, report_type)
-        return self.llm_instance.get_answer(materials, prompt)
+        out = self.llm_instance.get_answer(materials, prompt)
+        return self.post_process(out)
 
 
 
