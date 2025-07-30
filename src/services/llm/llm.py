@@ -12,7 +12,7 @@ class llm:
             base_url=self.configs['base_url'],
             temperature = self.configs["temperature"],
             api_key=self.configs['api_key'],
-            openai_proxy="socks5://127.0.0.1:12334"
+            # openai_proxy="socks5://127.0.0.1:12334"
         )
 
     

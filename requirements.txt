@@ -4,3 +4,5 @@ langchain_openai
 numpy
 scipy
 uvicorn
+transformers
+python-multipart
