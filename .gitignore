@@ -3,4 +3,5 @@ env.json
 *.log
 *.mp3
 
+radio/
 __pycache__/

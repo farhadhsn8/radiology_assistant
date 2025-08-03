@@ -3,6 +3,7 @@ singleton_decorator
 langchain_openai
 numpy
 scipy
+torch
 uvicorn
 transformers
 python-multipart
