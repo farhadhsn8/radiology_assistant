@@ -2,6 +2,6 @@ env.json
 
 *.log
 *.mp3
-
+*.m4a
 radio/
 __pycache__/

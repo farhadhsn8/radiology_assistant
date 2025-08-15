@@ -7,3 +7,4 @@ torch
 uvicorn
 transformers
 python-multipart
+pydub
