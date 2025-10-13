@@ -38,6 +38,7 @@ class Reporter_from_voice:
         return result["text"]
 
     
+    
     def generate_report(self, audio_path: str, report_type: str) -> str:
         file_addr = os.path.splitext(audio_path)[0] + ".mp3"
         self.convert_to_mp3(audio_path,file_addr)
