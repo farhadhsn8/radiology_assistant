@@ -5,7 +5,7 @@ import json
 
 class llm:
     def __init__(self) -> None:
-        with open('configs/env.json', 'r') as config_file:
+        with open('env.json', 'r') as config_file:
             self.configs = json.load(config_file)["models"]["llm"]
         self.client = ChatOpenAI(
             model=self.configs["model_name"],

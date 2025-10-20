@@ -1,4 +1,4 @@
-*env_sample.json
+*env.json
 *.venv
 *.log
 *.mp3
