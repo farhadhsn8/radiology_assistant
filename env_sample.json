@@ -1,7 +1,7 @@
 {
     "llm":{
       "base_url": "",
-      "api_key": "",
+      "api_key": "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",
       "model_name1": "gpt-4o-mini",
       "model_name": "gpt-4o-mini-2024-07-18",
       "stream": "False",
@@ -9,6 +9,6 @@
     },
     "API":{
       "name": "radio",
-      "key": ""
+      "key": "radio"
     }   
   }

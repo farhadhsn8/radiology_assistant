@@ -1,5 +1,5 @@
-env.json
-
+env_sample.json
+*.venv
 *.log
 *.mp3
 *.m4a

@@ -5,7 +5,7 @@ import json
 
 
 
-API = json.load(open('env.json'))['API']
+API = json.load(open('env_sample.json'))['API']
 
 api_key_header = APIKeyHeader(name=API["name"])
 

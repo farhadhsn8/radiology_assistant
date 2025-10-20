@@ -1,5 +1,5 @@
 import random
-import string
+import string,time
 
 import re, json
 
@@ -22,5 +22,46 @@ def extract_field_from_json(text, field_name):
     return match.group(1) if match else None
 
 
-def generate_random_string(length=10):
-    return ''.join(random.choices(string.ascii_letters + string.digits, k=length))
+def parse_report_for_filename(report: str) -> tuple[str, str, str]:
+    """Parse report to extract modality, contrast, and anatomy."""
+    report_lower = report.lower()
+    
+    # Detect modality
+    if "ct" in report_lower:
+        modality = "ct"
+    elif "mri" in report_lower:
+        modality = "mri"
+    elif "ultrasound" in report_lower or "sono" in report_lower:
+        modality = "ultrasound"
+    else:
+        modality = "unknown"
+    
+    # Detect contrast
+    contrast = "contrast" if "contrast" in report_lower else "no_contrast"
+    
+    # Detect anatomy (basic, can be extended)
+    anatomy = "unknown"
+    if "brain" in report_lower:
+        anatomy = "brain"
+    elif "abdomen" in report_lower or "pelvis" in report_lower:
+        anatomy = "abdomen_and_pelvis"
+    elif "chest" in report_lower:
+        anatomy = "chest"
+    
+    return modality, contrast, anatomy
+
+def generate_meaningful_filename(report_type: str = None, report: str = None, extension: str = "mp3") -> str:
+    """Generate a meaningful filename based on report_type or report content."""
+    if report:
+        # Use report content if available
+        modality, contrast, anatomy = parse_report_for_filename(report)
+        base_name = f"{modality}_{contrast}_{anatomy}"
+    else:
+        # Fallback to report_type
+        parts = report_type.split(":") if report_type else ["unknown"]
+        safe_parts = [part.lower().replace(" ", "_") for part in parts]
+        base_name = "_".join(safe_parts)
+    
+    # Append timestamp for uniqueness
+    timestamp = int(time.time())
+    return f"{base_name}_{timestamp}.{extension}"
