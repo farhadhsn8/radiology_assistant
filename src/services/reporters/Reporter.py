@@ -73,7 +73,8 @@ class Reporter:
             prompt = self.get_prompt(report_type)
             materials = self.prepare_inputs(raw_text, template, report_type)
             out = self.llm_instance.get_answer(materials, prompt)
-            return self.post_process(out)
+            out = self.post_process(out)
+            return out
         except Exception as e:
             print(f"Error generating report: {e}")
             return None

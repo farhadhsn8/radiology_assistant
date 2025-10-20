@@ -16,10 +16,15 @@ def read_text_file(file_path):
 
     
 def extract_field_from_json(text, field_name):
-    text = text.encode('latin-1').decode('unicode_escape')
-    pattern = rf"{re.escape(field_name)}:\s*\"((?:[^\"\\]|\\.)*)\""
-    match = re.search(pattern, text, re.DOTALL)
-    return match.group(1) if match else None
+    json_match = re.search(r'\{[^{}]*\}', text)
+    if json_match:
+        json_str = json_match.group()
+        try:
+            data = json.loads(json_str)
+            return data.get(field_name)
+        except json.JSONDecodeError:
+            print("Error: Invalid JSON format")
+            return None
 
 
 def parse_report_for_filename(report: str) -> tuple[str, str, str]:
