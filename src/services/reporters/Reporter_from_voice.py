@@ -6,68 +6,53 @@ import os, glob, re, numpy as np
 from natsort import natsorted
 from io import BytesIO
 from src.utils.file_processing import generate_meaningful_filename
+import time
+
 
 class Reporter_from_voice:
     def __init__(self):
         self.text_reporter = Reporter()
         self.pipe = pipeline(task="automatic-speech-recognition", model="openai/whisper-base", device=-1)
-        self.chunk_duration_sec = 30
+        self.chunk_duration_sec = 27
 
-    def split_audio_fixed_with_boundary(self, audio_path, output_dir):
-        """Split audio into ~30s chunks, adjusting boundaries to avoid mid-word cuts."""
-        audio_name = os.path.basename(audio_path)
-        try:
-            audio = AudioSegment.from_file(audio_path)
-        except Exception as e:
-            raise ValueError(f"Failed to load audio {audio_path}: {e}")
+    def split_audio_fixed_with_boundary(self, audio_path, output_dir, duration_sec= 29, overlap_sec=2 ):
+        audio = AudioSegment.from_file(audio_path)
         
-        duration_sec = len(audio) / 1000.0
-        if duration_sec <= self.chunk_duration_sec:
-            return [audio_path]
+        # Convert durations to milliseconds
+        duration_ms = int(duration_sec * 1000)
+        overlap_ms = int(overlap_sec * 1000)
         
-        try:
-            os.makedirs(output_dir, exist_ok=True)  # Ensure chunk dir exists
-        except OSError as e:
-            raise ValueError(f"Failed to create directory {output_dir}: {e}")
+        # Create output directory if not exists
+        os.makedirs(output_dir, exist_ok=True)
         
-        saved_files = []
-        start_ms = 0
-        i = 1
+        audio_length = len(audio)
         
-        while start_ms < len(audio):
-            end_ms = min(start_ms + self.chunk_duration_sec * 1000, len(audio))
-            temp_chunk = audio[start_ms:end_ms]
+        chunk_paths = []
+        start = 0
+        chunk_index = 0
+        
+        while start < audio_length:
+            end = start + duration_ms
+            if end > audio_length:
+                end = audio_length
             
-            # Check last 1s for mid-word
-            check_audio = temp_chunk[-1000:] if len(temp_chunk) > 1000 else temp_chunk
-            try:
-                check_audio_wav = check_audio.export(BytesIO(), format="wav")
-                check_audio_np = np.frombuffer(check_audio_wav.read(), dtype=np.int16)
-                check_text = self.speech_to_text(check_audio_np, format="wav")
-                if re.search(r'\S$|\w$', check_text.strip()):  # Mid-word
-                    ext_ms = min(end_ms + 5000, len(audio))  # Extend up to 5s
-                    if ext_ms > end_ms:
-                        ext_audio = audio[end_ms:ext_ms]
-                        silence = ext_audio.get_silence_duration(threshold=-40)
-                        if silence:
-                            end_ms += silence
-                        else:
-                            end_ms = ext_ms
-            except Exception as e:
-                print(f"Warning: Failed to check word boundary for chunk {i}: {e}")
+            chunk = audio[start:end]
             
-            chunk = audio[start_ms:end_ms]
-            if len(chunk) / 1000.0 >= 0.8:  # Skip short chunks
-                chunk_filename = os.path.join(output_dir, f"{audio_name}_{i}.mp3")
-                try:
-                    chunk.export(chunk_filename, format="mp3")
-                    saved_files.append(chunk_filename)
-                    i += 1
-                except Exception as e:
-                    print(f"Warning: Failed to export chunk {chunk_filename}: {e}")
-            start_ms = end_ms
+            chunk_filename = f"chunk_{chunk_index}.mp3"
+            chunk_path = os.path.join(output_dir, chunk_filename)
+            chunk.export(chunk_path, format="mp3")
+            
+            chunk_paths.append(chunk_path)
+            
+            # Move start forward by duration minus overlap
+            start += (duration_ms - overlap_ms)
+            chunk_index += 1
         
-        return saved_files
+        return chunk_paths
+
+
+
+
 
     def convert_to_mp3(self, input_file_path, output_file_path):
         """Convert audio to MP3."""
@@ -87,23 +72,33 @@ class Reporter_from_voice:
         except Exception as e:
             raise ValueError(f"Failed to transcribe audio: {e}")
 
-    def stt_all(self, directory):
+    def stt_all(self, chunk_pathes):
         """Transcribe all MP3 files in directory."""
         text = ""
-        for file in natsorted(glob.glob(os.path.join(directory, "*.mp3"))):
-            text += self.speech_to_text(file) + " "
-        return text.strip()
+        for file in natsorted(chunk_pathes):
+            ttt = self.speech_to_text(file) + " "
+            text += ttt
+            print(file, ttt)
+        return text
 
     def generate_report(self, audio_path: str, report_type: str) -> tuple[str, str]:
         print(f"Generating report for audio: {audio_path}")
+        print(13, time.time())
         file_addr = os.path.splitext(audio_path)[0] + ".mp3"
         audio_name = os.path.splitext(os.path.basename(audio_path))[0]
         chunks_dir = f"assets/voices/{audio_name}"
         print(f"Chunk directory: {chunks_dir}")
+        print(14, time.time())
         self.convert_to_mp3(audio_path, file_addr)
+        print(15, time.time())
         chunk_paths = self.split_audio_fixed_with_boundary(file_addr, chunks_dir)
-        gen_text = self.stt_all(chunks_dir)
+        print(16, time.time())
+        gen_text = self.stt_all(chunk_paths)
+        print(17, time.time())
+        print("gen_text", gen_text)
         report = self.text_reporter.generate_report(gen_text, report_type)
+        print(18, time.time())
+        print("final_report::", report)
         
             
         return report, gen_text  # Return report and raw transcribed text

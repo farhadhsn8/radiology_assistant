@@ -4,6 +4,7 @@ from src.services.reporters.Reporter import Reporter
 from src.services.reporters.Reporter_from_voice import Reporter_from_voice
 from src.utils.file_processing import generate_meaningful_filename
 import os, json
+import time
 from pydub import AudioSegment
 
 class Report_orchestrator:
@@ -20,6 +21,8 @@ class Report_orchestrator:
         return {"status": 200, "generated_report": report, "message": "Report generated from text"}
 
     def from_voice(self, input_voice, report_type: str):
+        print("0", 0)
+        print(11,time.time())
         # Use temporary filename based on report_type
         temp_file_name = generate_meaningful_filename(report_type, extension=self.configs["format"])
         file_path = os.path.join(self.configs["voice_address"], temp_file_name)
@@ -32,8 +35,9 @@ class Report_orchestrator:
         with open(file_path, "wb") as f:
             f.write(input_voice.file.read())
         
-      
+        print(12, time.time())
             # Generate report and get raw report text
+        print("before gen re voic", 0)
         report, raw_report = self.voice_reporter.generate_report(file_path, report_type)
         if not report:
             raise HTTPException(status_code=400, detail="Failed to generate report from voice")

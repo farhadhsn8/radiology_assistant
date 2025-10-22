@@ -25,8 +25,9 @@
       margin: 40px auto 20px;
       box-shadow: 0 8px 24px rgba(0,0,0,0.2);
     }
-    #uploadButton {
+    #uploadButton, #recordButton {
       width: 100%;
+      margin-bottom: 10px;
     }
     #status {
       margin-top: 10px;
@@ -66,15 +67,10 @@
     <h3 class="mb-4 text-center">Radiologist Report</h3>
     <form id="reportForm">
       <div class="mb-3">
-        <label for="reportType" class="form-label">Select a Report Type</label>
+        <label for="reportType" class="form-label">Select Report Type</label>
         <select class="form-select" id="reportType" name="reportType" required>
           <option value="" disabled selected>Choose a report type</option>
           <option value="CT:contrast:abdomen_and_pelvis">CT: Contrast: Abdomen and Pelvis</option>
-          <!-- <option value="Chest X-Ray">Chest X-Ray</option>
-          <option value="MRI">MRI</option>
-          <option value="CT Scan">CT Scan</option>
-          <option value="Ultrasound">Ultrasound</option>
-          <option value="Mammography">Mammography</option> -->
         </select>
       </div>
 
@@ -82,11 +78,16 @@
         <label class="form-label d-block">Upload Voice Report (MP3)</label>
         <input type="file" id="audioUpload" accept="audio/mp3,audio/*" class="d-none" />
         <button type="button" class="btn btn-primary" id="uploadButton">Choose File</button>
-        <div id="status"></div>
         <div id="fileInfo" class="file-info"></div>
-        <input type="hidden" name="audioData" id="audioData" />
       </div>
 
+      <div class="mb-3">
+        <label class="form-label d-block">Or Record Voice Report</label>
+        <button type="button" class="btn btn-warning" id="recordButton">Start Recording</button>
+        <div id="recordStatus" class="file-info"></div>
+      </div>
+
+      <input type="hidden" name="audioData" id="audioData" />
       <button type="submit" class="btn btn-success w-100" id="submitBtn" disabled>Submit Report</button>
     </form>
   </div>
@@ -103,8 +104,9 @@
   <script>
     const uploadButton = document.getElementById('uploadButton');
     const audioUpload = document.getElementById('audioUpload');
-    const status = document.getElementById('status');
     const fileInfo = document.getElementById('fileInfo');
+    const recordButton = document.getElementById('recordButton');
+    const recordStatus = document.getElementById('recordStatus');
     const audioDataInput = document.getElementById('audioData');
     const submitBtn = document.getElementById('submitBtn');
     const reportForm = document.getElementById('reportForm');
@@ -113,97 +115,132 @@
     const copyBtn = document.getElementById('copyBtn');
     const reportTypeSelect = document.getElementById('reportType');
 
-    // Trigger file input when button is clicked
+    let mediaRecorder;
+    let recordedChunks = [];
+
+    // Disable submit initially
+    submitBtn.disabled = true;
+
+    // Upload file button triggers file input
     uploadButton.addEventListener('click', () => {
       audioUpload.click();
     });
 
-    // Handle file selection
+    // When user selects a file
     audioUpload.addEventListener('change', async (e) => {
-      const file = e.target.files[0];
-      if (!file) return;
-
-      // Check file type
-      if (!file.type.startsWith('audio/')) {
-        status.textContent = 'Please select an audio file.';
+      if (mediaRecorder && mediaRecorder.state === 'recording') {
+        alert('Stop recording before uploading a file.');
+        audioUpload.value = ''; // reset
         return;
       }
 
-      // Check file size (30 seconds estimate - adjust based on typical bitrates)
-      // For MP3 at 128kbps, 30 seconds ~ 480KB
+      const file = e.target.files[0];
+      if (!file) return;
 
-
-      // Validate duration
-      try {
-        const duration = await getAudioDuration(file);
-       
-
-        // File is valid
-        fileInfo.textContent = `Selected: ${file.name} (${duration.toFixed(1)} seconds)`;
-        status.textContent = 'File ready for upload';
-        
-        // Read file as base64
-        const reader = new FileReader();
-        reader.onload = (event) => {
-          audioDataInput.value = event.target.result;
-          submitBtn.disabled = false;
-        };
-        reader.readAsDataURL(file);
-      } catch (error) {
-        status.textContent = 'Error processing audio file: ' + error.message;
-        console.error(error);
+      if (!file.type.startsWith('audio/')) {
+        alert('Please select an audio file.');
+        audioUpload.value = '';
+        return;
       }
+
+      // Clear previous recording data
+      recordedChunks = [];
+      recordStatus.textContent = '';
+
+      // Show file info
+      fileInfo.textContent = `Selected: ${file.name} (${(file.size / 1024).toFixed(1)} KB)`;
+
+      // Read file as base64
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        audioDataInput.value = event.target.result;
+        submitBtn.disabled = false;
+      };
+      reader.readAsDataURL(file);
     });
 
-    // Function to get audio duration
-    function getAudioDuration(file) {
-      return new Promise((resolve, reject) => {
-        const audio = new Audio();
-        audio.preload = 'metadata';
-        
-        audio.onloadedmetadata = () => {
-          resolve(audio.duration);
-          URL.revokeObjectURL(audio.src);
-        };
-        
-        audio.onerror = () => {
-          reject(new Error('Could not load audio file'));
-          URL.revokeObjectURL(audio.src);
-        };
-        
-        audio.src = URL.createObjectURL(file);
-      });
-    }
+    // Recording button logic
+    recordButton.addEventListener('click', async () => {
+      if (mediaRecorder && mediaRecorder.state === 'recording') {
+        // Stop recording
+        mediaRecorder.stop();
+        recordButton.textContent = 'Start Recording';
+        recordStatus.textContent = 'Processing recording...';
+        audioUpload.disabled = false;
+        uploadButton.disabled = false;
+      } else {
+        // Start recording
+        if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+          alert('Your browser does not support audio recording.');
+          return;
+        }
+
+        try {
+          const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+          mediaRecorder = new MediaRecorder(stream);
+
+          recordedChunks = [];
+          mediaRecorder.ondataavailable = (e) => {
+            if (e.data.size > 0) recordedChunks.push(e.data);
+          };
+
+          mediaRecorder.onstop = () => {
+            const blob = new Blob(recordedChunks, { type: 'audio/webm' });
+            const reader = new FileReader();
+            reader.onloadend = () => {
+              audioDataInput.value = reader.result;
+              submitBtn.disabled = false;
+              recordStatus.textContent = `Recording ready (${(blob.size / 1024).toFixed(1)} KB)`;
+              fileInfo.textContent = ''; // clear file upload info
+            };
+            reader.readAsDataURL(blob);
+            // Stop all audio tracks to release mic
+            stream.getTracks().forEach(track => track.stop());
+          };
+
+          mediaRecorder.start();
+          recordButton.textContent = 'Stop Recording';
+          recordStatus.textContent = 'Recording...';
+          audioUpload.value = '';
+          audioUpload.disabled = true;
+          uploadButton.disabled = true;
+          submitBtn.disabled = true; // disable submit until recording stops
+        } catch (err) {
+          alert('Could not start recording: ' + err.message);
+        }
+      }
+    });
 
     reportForm.addEventListener('submit', async (e) => {
       e.preventDefault();
 
       if (!audioDataInput.value) {
-        alert('Please upload an audio file before submitting.');
+        alert('Please upload or record an audio file before submitting.');
         return;
       }
 
       submitBtn.disabled = true;
+      recordButton.disabled = true;
+      uploadButton.disabled = true;
+      audioUpload.disabled = true;
+      fileInfo.textContent = '';
+      recordStatus.textContent = '';
       status.textContent = 'Submitting report...';
 
       try {
         // Convert base64 audio to Blob
         const audioBlob = dataURLtoBlob(audioDataInput.value);
-        
-        // Create FormData for the API request
+
         const formData = new FormData();
-        formData.append('input_voice', audioBlob, 'recording.mp3');
-        
-        // API endpoint and headers
+        formData.append('input_voice', audioBlob, 'recording.webm');
+
         const url = "/api/voice/gen_report";
         const headers = {
           'radio': 'WGhgR5dOAEc34MI0Zpi5C2Y3LyjwT9Ex',
         };
-        
-        // Get report type from select
+
         const reportType = reportTypeSelect.value;
-        
-        // Make the API request
+
         const response = await fetch(`${url}?report_type=${encodeURIComponent(reportType)}`, {
           method: 'POST',
           headers: headers,
@@ -214,10 +251,9 @@
           throw new Error(`HTTP error! status: ${response.status}`);
         }
 
-        var result = await response.json();
-        result = result.generated_report;
-        
-        // Display the response
+        const resultJson = await response.json();
+        const result = resultJson.generated_report;
+
         reportResponse.value = result;
         responseContainer.style.display = 'block';
         status.textContent = 'Report received successfully!';
@@ -227,19 +263,21 @@
         responseContainer.style.display = 'none';
       } finally {
         submitBtn.disabled = false;
+        recordButton.disabled = false;
+        uploadButton.disabled = false;
+        audioUpload.disabled = false;
       }
     });
 
     copyBtn.addEventListener('click', () => {
       reportResponse.select();
-      reportResponse.setSelectionRange(0, 99999); // For mobile devices
+      reportResponse.setSelectionRange(0, 99999);
       navigator.clipboard.writeText(reportResponse.value).then(() => {
         copyBtn.textContent = 'Copied!';
         setTimeout(() => (copyBtn.textContent = 'Copy to Clipboard'), 2000);
       });
     });
 
-    // Helper function to convert data URL to Blob
     function dataURLtoBlob(dataurl) {
       const arr = dataurl.split(',');
       const mime = arr[0].match(/:(.*?);/)[1];

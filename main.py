@@ -2,11 +2,12 @@ from src.apis.v1.route import app as api_app
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 # source radio/bin/activate
+# cp index.html  /var/www/html/index.html
+# cp  reportexx /etc/nginx/sites-available/reportexx 
+# sudo nginx -s reload
 # ps aux | grep uvicorn
 # kill id
-# uvicorn main:app --host 0.0.0.0 --port 5682 --workers 1 
-# nohup uvicorn main:app --host 0.0.0.0 --port 5682 --workers 1 > logs/output.log 2>&1 &
-
+# nohup uvicorn main:app --host 127.0.0.1  --port 5682 --timeout-keep-alive 300  --workers 1 > logs/output.log 2>&1 &
 app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
