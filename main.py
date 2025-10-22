@@ -1,6 +1,7 @@
 from src.apis.v1.route import app as api_app
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+# source radio/bin/activate
 # ps aux | grep uvicorn
 # kill id
 # uvicorn main:app --host 0.0.0.0 --port 5682 --workers 1 

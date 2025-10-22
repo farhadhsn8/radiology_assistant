@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Radiologist Report Form</title>
+  <!-- Bootstrap CSS CDN -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  />
+  <style>
+    body, html {
+      height: 100%;
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: url('bg.jpg') no-repeat center center fixed;
+      background-size: cover;
+    }
+    .form-container {
+      background: rgba(255, 255, 255, 0.85);
+      padding: 30px;
+      border-radius: 12px;
+      max-width: 400px;
+      margin: 40px auto 20px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+    }
+    #uploadButton {
+      width: 100%;
+    }
+    #status {
+      margin-top: 10px;
+      font-weight: 600;
+      color: #333;
+      min-height: 1.5em;
+    }
+    .response-container {
+      max-width: 600px;
+      margin: 0 auto 40px;
+      background: rgba(255, 255, 255, 0.85);
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+    }
+    #reportResponse {
+      width: 100%;
+      height: 200px;
+      resize: vertical;
+      padding: 10px;
+      border: 1px solid #ced4da;
+      border-radius: 6px;
+      font-family: monospace, monospace;
+      white-space: pre-wrap;
+      overflow-y: auto;
+      background-color: #f8f9fa;
+    }
+    .file-info {
+      margin-top: 10px;
+      font-size: 0.9em;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+  <div class="form-container shadow">
+    <h3 class="mb-4 text-center">Radiologist Report</h3>
+    <form id="reportForm">
+      <div class="mb-3">
+        <label for="reportType" class="form-label">Select a Report Type</label>
+        <select class="form-select" id="reportType" name="reportType" required>
+          <option value="" disabled selected>Choose a report type</option>
+          <option value="CT:contrast:abdomen_and_pelvis">CT: Contrast: Abdomen and Pelvis</option>
+          <!-- <option value="Chest X-Ray">Chest X-Ray</option>
+          <option value="MRI">MRI</option>
+          <option value="CT Scan">CT Scan</option>
+          <option value="Ultrasound">Ultrasound</option>
+          <option value="Mammography">Mammography</option> -->
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label d-block">Upload Voice Report (MP3)</label>
+        <input type="file" id="audioUpload" accept="audio/mp3,audio/*" class="d-none" />
+        <button type="button" class="btn btn-primary" id="uploadButton">Choose File</button>
+        <div id="status"></div>
+        <div id="fileInfo" class="file-info"></div>
+        <input type="hidden" name="audioData" id="audioData" />
+      </div>
+
+      <button type="submit" class="btn btn-success w-100" id="submitBtn" disabled>Submit Report</button>
+    </form>
+  </div>
+
+  <div class="response-container" id="responseContainer" style="display:none;">
+    <h5 class="mb-3">Report Response</h5>
+    <textarea id="reportResponse" readonly></textarea>
+    <button class="btn btn-outline-secondary mt-2" id="copyBtn">Copy to Clipboard</button>
+  </div>
+
+  <!-- Bootstrap JS Bundle CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    const uploadButton = document.getElementById('uploadButton');
+    const audioUpload = document.getElementById('audioUpload');
+    const status = document.getElementById('status');
+    const fileInfo = document.getElementById('fileInfo');
+    const audioDataInput = document.getElementById('audioData');
+    const submitBtn = document.getElementById('submitBtn');
+    const reportForm = document.getElementById('reportForm');
+    const responseContainer = document.getElementById('responseContainer');
+    const reportResponse = document.getElementById('reportResponse');
+    const copyBtn = document.getElementById('copyBtn');
+    const reportTypeSelect = document.getElementById('reportType');
+
+    // Trigger file input when button is clicked
+    uploadButton.addEventListener('click', () => {
+      audioUpload.click();
+    });
+
+    // Handle file selection
+    audioUpload.addEventListener('change', async (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      // Check file type
+      if (!file.type.startsWith('audio/')) {
+        status.textContent = 'Please select an audio file.';
+        return;
+      }
+
+      // Check file size (30 seconds estimate - adjust based on typical bitrates)
+      // For MP3 at 128kbps, 30 seconds ~ 480KB
+
+
+      // Validate duration
+      try {
+        const duration = await getAudioDuration(file);
+       
+
+        // File is valid
+        fileInfo.textContent = `Selected: ${file.name} (${duration.toFixed(1)} seconds)`;
+        status.textContent = 'File ready for upload';
+        
+        // Read file as base64
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          audioDataInput.value = event.target.result;
+          submitBtn.disabled = false;
+        };
+        reader.readAsDataURL(file);
+      } catch (error) {
+        status.textContent = 'Error processing audio file: ' + error.message;
+        console.error(error);
+      }
+    });
+
+    // Function to get audio duration
+    function getAudioDuration(file) {
+      return new Promise((resolve, reject) => {
+        const audio = new Audio();
+        audio.preload = 'metadata';
+        
+        audio.onloadedmetadata = () => {
+          resolve(audio.duration);
+          URL.revokeObjectURL(audio.src);
+        };
+        
+        audio.onerror = () => {
+          reject(new Error('Could not load audio file'));
+          URL.revokeObjectURL(audio.src);
+        };
+        
+        audio.src = URL.createObjectURL(file);
+      });
+    }
+
+    reportForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      if (!audioDataInput.value) {
+        alert('Please upload an audio file before submitting.');
+        return;
+      }
+
+      submitBtn.disabled = true;
+      status.textContent = 'Submitting report...';
+
+      try {
+        // Convert base64 audio to Blob
+        const audioBlob = dataURLtoBlob(audioDataInput.value);
+        
+        // Create FormData for the API request
+        const formData = new FormData();
+        formData.append('input_voice', audioBlob, 'recording.mp3');
+        
+        // API endpoint and headers
+        const url = "/api/voice/gen_report";
+        const headers = {
+          'radio': 'WGhgR5dOAEc34MI0Zpi5C2Y3LyjwT9Ex',
+        };
+        
+        // Get report type from select
+        const reportType = reportTypeSelect.value;
+        
+        // Make the API request
+        const response = await fetch(`${url}?report_type=${encodeURIComponent(reportType)}`, {
+          method: 'POST',
+          headers: headers,
+          body: formData
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        var result = await response.json();
+        result = result.generated_report;
+        
+        // Display the response
+        reportResponse.value = result;
+        responseContainer.style.display = 'block';
+        status.textContent = 'Report received successfully!';
+      } catch (error) {
+        status.textContent = 'Error submitting report: ' + error.message;
+        console.error('Error:', error);
+        responseContainer.style.display = 'none';
+      } finally {
+        submitBtn.disabled = false;
+      }
+    });
+
+    copyBtn.addEventListener('click', () => {
+      reportResponse.select();
+      reportResponse.setSelectionRange(0, 99999); // For mobile devices
+      navigator.clipboard.writeText(reportResponse.value).then(() => {
+        copyBtn.textContent = 'Copied!';
+        setTimeout(() => (copyBtn.textContent = 'Copy to Clipboard'), 2000);
+      });
+    });
+
+    // Helper function to convert data URL to Blob
+    function dataURLtoBlob(dataurl) {
+      const arr = dataurl.split(',');
+      const mime = arr[0].match(/:(.*?);/)[1];
+      const bstr = atob(arr[1]);
+      let n = bstr.length;
+      const u8arr = new Uint8Array(n);
+      while (n--) {
+        u8arr[n] = bstr.charCodeAt(n);
+      }
+      return new Blob([u8arr], { type: mime });
+    }
+  </script>
+</body>
+</html>
