@@ -1,0 +1,15 @@
+ Virtual Colonoscopy (3D)  M.D.C.T Scan :
+-	Study was performed in supine and prone position , after colon preparation .
+-	Large bowel loops have normal diameter with no evidence of partial or complete bowel obstruction.
+-	There is no wall thickening or mucosal lesion and polypoid mass ,large bowel diverticulum is not seen.
+
+IMP: CT colonography classification : 
+ 	
+Classification of colonic findings and suggestive follow – up 
+CRADS:	
+C0: Inadequate study/ awaiting prior comparisons
+C1: Normal colon or benign lesion: continue routine screening 
+C2: Intermediate polyp or indeterminate finding: 
+Surveillance or colonoscopy recommended.
+C3: Polyp possibly advanced adenoma: Follow – up colonoscopy recommended.
+C4: Colonic mass, likely malignant, surgical conclusion recommended

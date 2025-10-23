@@ -1,0 +1,6 @@
+Multislice CT  Scan 3D of Pelvic :
+The study was performed in axial views obtaining sagittal, coronal and three dimensional reconstructed views  more focusing bone window settings.
+-	Sacroiliac and hip joint's are also included.
+-	Hip joint's are seen normal bilaterally with no definite fracture or dislocation.
+-	Sacroiliac joints are also seen well with no evidence of narrowing or irregularity in joint surface.
+-	No lytic or blastic lesion is detected in bony pelvis.

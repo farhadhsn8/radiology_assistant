@@ -1,0 +1,18 @@
+Request : Thoracic aorta CT-angiography ,using Multislice spiral (MSCT)
+
+Using intravenous injection of non-ionic contrast medium and 156-slice MSCT scanner (Brilliance TM 128: Philips Medical Systems) assessment of the thoracic aorta and its branches was performed and the corresponding MIP, MPR, and 3D volume rendering (VR) images were reconstructed . On obtained slices and the corresponding MIP , MPR and volume rendering views , the findings are as follows:
+-	The aortic valve cusp and corresponding valsalva sinuses are ordinarily observed and unremarkable .
+-	Aortic sinus dimensions (according to cusp-commisure distance):
+-	Left sinus:
+-	Right sinus:
+-	NC sinus:
+-	Maximum aortic sinus dimension (according to cusp-distance):
+-	ST junction diameter:
+-	Tubular ascending aorta: 
+-	The ascending aorta of normal caliber and lacks any stenosis, dissection or aneurysm 
+
+-	The normally left-sided aortic arch is of normal caliber , as well .
+-	The innominate artery , left common carotid artery and left subclavicular artery are ordinarily branched from aortic arch and have taken-off in a normal manner and order .
+-	The ascending aorta has normal course and caliber , No specific pathologic process is found over the descending  thoracic aorta . There is no stenosis ,dissection or aneurysm formation along the descending thoracic aorta .
+
+IMPRESSION: No dissection , aneurysm or significant stenosis    

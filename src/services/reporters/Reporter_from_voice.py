@@ -83,21 +83,15 @@ class Reporter_from_voice:
 
     def generate_report(self, audio_path: str, report_type: str) -> tuple[str, str]:
         print(f"Generating report for audio: {audio_path}")
-        print(13, time.time())
         file_addr = os.path.splitext(audio_path)[0] + ".mp3"
         audio_name = os.path.splitext(os.path.basename(audio_path))[0]
         chunks_dir = f"assets/voices/{audio_name}"
         print(f"Chunk directory: {chunks_dir}")
-        print(14, time.time())
         self.convert_to_mp3(audio_path, file_addr)
-        print(15, time.time())
         chunk_paths = self.split_audio_fixed_with_boundary(file_addr, chunks_dir)
-        print(16, time.time())
         gen_text = self.stt_all(chunk_paths)
-        print(17, time.time())
         print("gen_text", gen_text)
         report = self.text_reporter.generate_report(gen_text, report_type)
-        print(18, time.time())
         print("final_report::", report)
         
             

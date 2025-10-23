@@ -1,0 +1,17 @@
+
+Multislice CT Cardiac angiography:
+ The coronary angiography was performed after IV injection of 100cc  contrast agent, in different technique, including axial images from the aortic root, slab MIP, curved MIP, volume surface rendering and tracked images.
+
+- Situs: Solitus 
+- Atrioventricular connection: Concordant
+- Ventriculoarterial connection: Concordant  
+- SVC and IVC are drained to RA 
+- All pulmonary veins are drained LA  and there is no PAPVC 
+- ASD secondrum is seen (defect size :18mm)
+- Aortic arch is Lt sided and branching order is normal .
+-  Pulmonary trunk is dilated (MPA: 32mm) indicating pulmonary HTN 
+- RV is dilated 
+- Coronary arteries are normal 
+
+IMP: ASD secondrum with PH 
+         No evidence of PAPVC 
