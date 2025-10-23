@@ -46,21 +46,21 @@ class Reporter:
 
     def get_prompt(self, report_type: str) -> str:
         """Get prompt based on report type with default handling."""
-        type_parts = report_type.split(":")
+        # type_parts = report_type.split(":")
         
-        if len(type_parts) == 1:  # e.g., "CT"
-            modality = type_parts[0]
-            file_addr = f"assets/prompts/{modality}/contrast/abdomen_and_pelvis.txt"
-        elif len(type_parts) == 2:  # e.g., "CT:contrast"
-            file_addr = f"assets/prompts/{type_parts[0]}/{type_parts[1]}/abdomen_and_pelvis.txt"
-        elif len(type_parts) == 3:  # e.g., "CT:contrast:abdomen_and_pelvis"
-            file_addr = f"assets/prompts/{type_parts[0]}/{type_parts[1]}/{type_parts[2]}.txt"
-        else:
-            raise ValueError(f"Invalid report_type format: {report_type}")
+        # if len(type_parts) == 1:  # e.g., "CT"
+        #     modality = type_parts[0]
+        #     file_addr = f"assets/prompts/{modality}/contrast/abdomen_and_pelvis.txt"
+        # elif len(type_parts) == 2:  # e.g., "CT:contrast"
+        #     file_addr = f"assets/prompts/{type_parts[0]}/{type_parts[1]}/abdomen_and_pelvis.txt"
+        # elif len(type_parts) == 3:  # e.g., "CT:contrast:abdomen_and_pelvis"
+        #     file_addr = f"assets/prompts/{type_parts[0]}/{type_parts[1]}/{type_parts[2]}.txt"
+        # else:
+        #     raise ValueError(f"Invalid report_type format: {report_type}")
         
-        if not os.path.exists(file_addr):
-            raise FileNotFoundError(f"Prompt file for {report_type} not found: {file_addr}")
-        
+        # if not os.path.exists(file_addr):
+        #     raise FileNotFoundError(f"Prompt file for {report_type} not found: {file_addr}")
+        file_addr = f"assets/prompts/general_prompt.txt"
         content = read_text_file(file_addr)
         if "error" in content.lower():
             raise Exception(f"Error reading prompt file for {report_type}: {content}")
