@@ -1,5 +1,6 @@
 
 from src.services.reporters.Reporter import Reporter
+from src.services.reporters.type_detector import Type_detector
 from transformers import pipeline
 from pydub import AudioSegment
 import os, glob, re, numpy as np
@@ -12,6 +13,7 @@ import time
 class Reporter_from_voice:
     def __init__(self):
         self.text_reporter = Reporter()
+        self.type_detector = Type_detector()
         self.pipe = pipeline(task="automatic-speech-recognition", model="openai/whisper-base", device=-1)
         self.chunk_duration_sec = 27
 
@@ -81,7 +83,7 @@ class Reporter_from_voice:
             print(file, ttt)
         return text
 
-    def generate_report(self, audio_path: str, report_type: str) -> tuple[str, str]:
+    def generate_report(self, audio_path: str) -> tuple[str, str]:
         print(f"Generating report for audio: {audio_path}")
         file_addr = os.path.splitext(audio_path)[0] + ".mp3"
         audio_name = os.path.splitext(os.path.basename(audio_path))[0]
@@ -90,7 +92,9 @@ class Reporter_from_voice:
         self.convert_to_mp3(audio_path, file_addr)
         chunk_paths = self.split_audio_fixed_with_boundary(file_addr, chunks_dir)
         gen_text = self.stt_all(chunk_paths)
+        report_type = self.type_detector.detect(gen_text)
         print("gen_text", gen_text)
+        print("report_type",report_type)
         report = self.text_reporter.generate_report(gen_text, report_type)
         print("final_report::", report)
         

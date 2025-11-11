@@ -66,7 +66,7 @@
   <div class="form-container shadow">
     <h3 class="mb-4 text-center">Radiologist Report</h3>
     <form id="reportForm">
-      <div class="mb-3">
+      <!-- <div class="mb-3">
         <label for="reportType" class="form-label">Select Report Type</label>
         <select class="form-select" id="reportType" name="reportType" required>
           <option value="" disabled selected>Choose a report type</option>
@@ -81,7 +81,7 @@
           <option value="CT:no_contrast:Chest">CT: No Contrast: Chest</option>
           <option value="CT:no_contrast:Wrist_3D">CT: No Contrast: Wrist_3D</option>
         </select>
-      </div>
+      </div> -->
 
       <div class="mb-3">
         <label class="form-label d-block">Upload Voice Report (MP3)</label>
@@ -122,7 +122,6 @@
     const responseContainer = document.getElementById('responseContainer');
     const reportResponse = document.getElementById('reportResponse');
     const copyBtn = document.getElementById('copyBtn');
-    const reportTypeSelect = document.getElementById('reportType');
 
     let mediaRecorder;
     let recordedChunks = [];
@@ -248,9 +247,8 @@
           'radio': 'WGhgR5dOAEc34MI0Zpi5C2Y3LyjwT9Ex',
         };
 
-        const reportType = reportTypeSelect.value;
 
-        const response = await fetch(`${url}?report_type=${encodeURIComponent(reportType)}`, {
+        const response = await fetch(`${url}`, {
           method: 'POST',
           headers: headers,
           body: formData

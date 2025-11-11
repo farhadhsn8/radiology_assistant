@@ -22,7 +22,7 @@ async def generate_report_from_text(input_text: str, report_type: str):
     return repr_orch.from_text(input_text, report_type)   
     
 @app.post("/voice/gen_report", dependencies=[Depends(verify_api_key)])
-async def generate_report_from_voice(input_voice: UploadFile, report_type): 
-    return repr_orch.from_voice(input_voice, report_type)
+async def generate_report_from_voice(input_voice: UploadFile): 
+    return repr_orch.from_voice(input_voice)
 
 

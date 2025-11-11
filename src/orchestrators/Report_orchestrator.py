@@ -20,9 +20,10 @@ class Report_orchestrator:
             raise HTTPException(status_code=400, detail="Failed to generate report from text")
         return {"status": 200, "generated_report": report, "message": "Report generated from text"}
 
-    def from_voice(self, input_voice, report_type: str):
+
+    def from_voice(self, input_voice):
         # Use temporary filename based on report_type
-        temp_file_name = generate_meaningful_filename(report_type, extension=self.configs["format"])
+        temp_file_name = generate_meaningful_filename("unknown", extension=self.configs["format"])
         file_path = os.path.join(self.configs["voice_address"], temp_file_name)
         print(f"Saving audio to: {file_path}")
         try:
@@ -34,12 +35,12 @@ class Report_orchestrator:
             f.write(input_voice.file.read())
         
             # Generate report and get raw report text
-        report, raw_report = self.voice_reporter.generate_report(file_path, report_type)
+        report, raw_report = self.voice_reporter.generate_report(file_path)
         if not report:
             raise HTTPException(status_code=400, detail="Failed to generate report from voice")
             
         # Rename file based on report content
-        final_file_name = generate_meaningful_filename(report_type, raw_report, self.configs["format"])
+        final_file_name = generate_meaningful_filename("unknown", raw_report, self.configs["format"])
         final_file_path = os.path.join(self.configs["voice_address"], final_file_name)
         if file_path != final_file_path and os.path.exists(file_path):
             os.rename(file_path, final_file_path)
