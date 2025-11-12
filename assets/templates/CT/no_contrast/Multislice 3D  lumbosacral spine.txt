@@ -1,7 +1,7 @@
 Multislice CT  Scan of  3D  lumbosacral spine:
 The study was performed in axial views obtaining sagittal, coronal and three dimensional reconstructed views  more focusing bone window settings.
--	Vertebral bodies, pedicles and lamina are normal with no lytic or blastic lesion.
--	No spondylolysis or spondylolisthesis is present.
--	There is no evidence of fracture or dislocation.
+•	Vertebral bodies, pedicles and lamina are normal with no lytic or blastic lesion.
+•	No spondylolysis or spondylolisthesis is present.
+•	There is no evidence of fracture or dislocation.
 		
 IMP: Normal MDCT of lumbosacral  spine

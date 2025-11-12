@@ -1,9 +1,9 @@
 CT urography:
 Multisection / Multiplanar study  reveal:
--	After contrast injection both kidney are seen with normal nephrogram and pyelogram phase.
--	Pelvicaliceal system dilatation is not seen.
--	There is no evidence of filling defect (stone or mass).
--	Both ureter is normal, without filling defect on stenosis .
--	Bladder wall thickness is normal.
+•	After contrast injection both kidney are seen with normal nephrogram and pyelogram phase.
+•	Pelvicaliceal system dilatation is not seen.
+•	There is no evidence of filling defect (stone or mass).
+•	Both ureter is normal, without filling defect on stenosis .
+•	Bladder wall thickness is normal.
 
 IMP: Normal urography CT Scan

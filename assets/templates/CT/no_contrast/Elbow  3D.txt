@@ -1,7 +1,7 @@
 Elbow  3D  M.D.C.T Scan :
 Multisection / Multiplanar study  reveal:
--	Bony structures are normal in shape without  fracture or dislocation.
--	No lytic or blastic lesion is present.
+•	Bony structures are normal in shape without  fracture or dislocation.
+•	No lytic or blastic lesion is present.
 						
 IMP: Normal Elbow 3D  M.D.C.T Scan	
 

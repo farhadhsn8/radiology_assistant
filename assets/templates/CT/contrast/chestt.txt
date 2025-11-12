@@ -1,11 +1,11 @@
 Chest M.D.C.T Scan with contrast:	
 Multisection / Multiplanar study  reveal:	
--	Heart size is normal.
--	Major mediastinal vessels appear normal.
--	Lungs are free from significant pathologic infiltration.
--	No mediastinal or hilar lymphadenopathy is seen.
--	Bony thorax and soft tissue are normal.
--	There is no evidence of pleural effusion or thickening.
+•	Heart size is normal.
+•	Major mediastinal vessels appear normal.
+•	Lungs are free from significant pathologic infiltration.
+•	No mediastinal or hilar lymphadenopathy is seen.
+•	Bony thorax and soft tissue are normal.
+•	There is no evidence of pleural effusion or thickening.
 		
 
 IMP: Normal thorax  MDCT Scan 

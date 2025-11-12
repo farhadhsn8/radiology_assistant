@@ -1,12 +1,12 @@
 Multislice CT angiography of thoracic aorta with contrast (PTE Protocol):
 Multisection / Multiplanar study  reveal:	
--	This exam is performed with special protocol for evaluation of PTE, however, pulmonary trunk, main Rt & Lt pulmonary arteries , lobar and major segmental branches are  well opacified without obvious filling defect.
--	Multifocal subpleural and  peribronchial  consolidation / ground glass opacities  is present which is highly suggestive for  COVID-19 pneumonia. 
--	No mediastinal or hilar lymphadenopathy is seen.
--	Bony thorax  and soft tissues are normal.
--	There is no evidence of  pleural effusion or thickening. 
+•	This exam is performed with special protocol for evaluation of PTE, however, pulmonary trunk, main Rt & Lt pulmonary arteries , lobar and major segmental branches are  well opacified without obvious filling defect.
+•	Multifocal subpleural and  peribronchial  consolidation / ground glass opacities  is present which is highly suggestive for  COVID•19 pneumonia. 
+•	No mediastinal or hilar lymphadenopathy is seen.
+•	Bony thorax  and soft tissues are normal.
+•	There is no evidence of  pleural effusion or thickening. 
 
 Imaging  is not a screening  tool  for  COVID 19  disease   and correlation  with PCR  test in all suspected  patient  is essential.
 			
 IMP: No PTE  
-          Viral pneumonia  (highly suggestive for  COVID-19)		
+          Viral pneumonia  (highly suggestive for  COVID•19)		

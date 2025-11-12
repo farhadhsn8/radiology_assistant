@@ -1,10 +1,10 @@
 CT  Scan of sinuses(axial or coronal):
 Multisection / Multiplanar study  reveal:
--	Mucoperisteal line seem sharp and normal.
--	Mucosal thickening or Opacification of paranasal sinuses is not present 
--	Both OMC are patent.
--	No pathologic bony changes is noted. 
--	S- Shape septal deviation is seen. 
+•	Mucoperisteal line seem sharp and normal.
+•	Mucosal thickening or Opacification of paranasal sinuses is not present 
+•	Both OMC are patent.
+•	No pathologic bony changes is noted. 
+•	S• Shape septal deviation is seen. 
 	
 IMP: Normal 	
           No sinusitis	

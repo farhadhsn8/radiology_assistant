@@ -1,7 +1,7 @@
  Virtual Colonoscopy (3D)  M.D.C.T Scan :
--	Study was performed in supine and prone position , after colon preparation .
--	Large bowel loops have normal diameter with no evidence of partial or complete bowel obstruction.
--	There is no wall thickening or mucosal lesion and polypoid mass ,large bowel diverticulum is not seen.
+•	Study was performed in supine and prone position , after colon preparation .
+•	Large bowel loops have normal diameter with no evidence of partial or complete bowel obstruction.
+•	There is no wall thickening or mucosal lesion and polypoid mass ,large bowel diverticulum is not seen.
 
 IMP: CT colonography classification : 
  	

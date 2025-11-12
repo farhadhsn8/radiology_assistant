@@ -14,7 +14,7 @@ class Reporter:
         -------------------------
         Template report: {template}
         -------------------------
-        Patient raw report: {raw_text}
+        Patient raw report (voice-transcribed): {raw_text}
         """
 
     def post_process(self, out: str) -> str:

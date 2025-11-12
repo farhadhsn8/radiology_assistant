@@ -22,7 +22,7 @@ def extract_field_from_json(text, field_name):
     if match:
         final_report = match.group(1)
         # Unescape any escaped characters like \n
-        final_report = final_report.encode().decode('unicode_escape')
+        final_report = final_report.encode().decode('unicode_escape').replace('â¢', '•')
         return final_report
     else:
         return text

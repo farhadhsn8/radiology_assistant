@@ -1,11 +1,11 @@
 HRCT:
 Multisection / Multiplanar study  reveal:
--	No alveolar opacity in the lung are seen.
--	No parenchymal pathologic changes is present.
--	Peribronchovascular and interlobular septal thickness is normal.
--	No finding of bronchiectasia is present.
--	Pleural and subpleural spaces are normal.
--	No air trapping is noted.
+•	No alveolar opacity in the lung are seen.
+•	No parenchymal pathologic changes is present.
+•	Peribronchovascular and interlobular septal thickness is normal.
+•	No finding of bronchiectasia is present.
+•	Pleural and subpleural spaces are normal.
+•	No air trapping is noted.
 
 IMP: Normal HRCT of lung 
 

@@ -1,5 +1,5 @@
 Multislice CT scan of  3D cervical spine :
 The study was performed in axial views obtaining sagittal, coronal and three dimensional reconstructed views  more focusing bone window settings.
--	Cervical spine, vertebral bodies, disk space, alignment, facet joint and posterior neural arc are normal.
--	There is no evidence  of  canal stenosis, dislocation or fracture.
+•	Cervical spine, vertebral bodies, disk space, alignment, facet joint and posterior neural arc are normal.
+•	There is no evidence  of  canal stenosis, dislocation or fracture.
 IMP: Normal MDCT of cervical spine. 

@@ -1,11 +1,11 @@
 Multislice CT angiography of thoracic aorta with contrast (PTE Protocol):
--	Multisection / Multiplanar study  reveal:
--	This exam is performed with PTE protocol but has suboptimal quality due to  inadequate enhancement of pulmonary arteries but as far as seen. 
--	Pulmonary trunk, main Rt & Lt pulmonary arteries , lobar and major segmental branches are  well opacified without obvious filling defect.
--	Lungs are free from significant pathologic infiltration.
--	No mediastinal or hilar lymphadenopathy is seen.
--	Bony thorax  and soft tissues are normal.
--	There is no evidence of  pleural effusion or thickening
+•	Multisection / Multiplanar study  reveal:
+•	This exam is performed with PTE protocol but has suboptimal quality due to  inadequate enhancement of pulmonary arteries but as far as seen. 
+•	Pulmonary trunk, main Rt & Lt pulmonary arteries , lobar and major segmental branches are  well opacified without obvious filling defect.
+•	Lungs are free from significant pathologic infiltration.
+•	No mediastinal or hilar lymphadenopathy is seen.
+•	Bony thorax  and soft tissues are normal.
+•	There is no evidence of  pleural effusion or thickening
 
 
 IMP: No PTE
