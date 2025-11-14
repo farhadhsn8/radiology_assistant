@@ -1,7 +1,14 @@
-Brain   M.D.C.T Scan without contrast:
-Multisection / Multiplanar study  reveal:
-•	Orbits, posterior fossa, basal ganglia and sellar regions are normal. Gray•white matter interface is normal. Ventricles are normal and no sign of hydrocephalus is noted.
-•	Deep white matter periventricular hypodensities are seen suggesting ischemic changes due to small vessel disease .
-•	No mid line shift is seen .
-	
-IMP: Normal brain   M.D.C.T Scan
+Brain MDCT without contrast – evaluation of cerebral atrophy
+Technique
+•	Non contrast multidetector CT head performed using helical volumetric acquisition from the cervical spine (C2) to the vertex. Slice thickness <1 mm with 0.5 mm increments; multiplanar reconstructions in axial, sagittal and coronal planes for both brain and bone windows.
+•	Images were reviewed in brain and bone windows to assess cortical and central atrophy.
+Findings
+•	Generalized cortical and central atrophy is seen: the cerebral sulci are markedly prominent and the ventricles are enlarged (ventriculomegaly) without bulging of the third ventricular recesses.
+•	Changes are symmetrical and consistent with age related cerebral atrophy; white matter hypoattenuation is noted, in keeping with chronic small vessel ischemic disease.
+•	No acute intracranial hemorrhage, mass effect or hydrocephalus.
+•	Skull vault and visualized orbits are intact; no calvarial fracture.
+Impression
+•	Generalized cerebral atrophy with ventriculomegaly and prominent sulci.
+•	White matter hypoattenuation consistent with chronic small vessel ischemic change.
+•	No acute intracranial abnormality.
+

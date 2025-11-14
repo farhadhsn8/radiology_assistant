@@ -242,7 +242,8 @@
         const formData = new FormData();
         formData.append('input_voice', audioBlob, 'recording.webm');
 
-        const url = "/api/voice/gen_report";
+        const url ="http://127.0.0.1:5682/api/voice/gen_report"
+
         const headers = {
           'radio': 'WGhgR5dOAEc34MI0Zpi5C2Y3LyjwT9Ex',
         };

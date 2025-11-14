@@ -1,19 +1,15 @@
-Abdominopelvic M.D.C.T scan without  IV contrast:
-The study is performed without IV and  Po contrast. so, as far as detected:
-•Liver has normal size, shape &density without  space occupying lesion or biliary dilation. 
-•Small hypodense lesion in diameter of 7/5mm is seen with non significant appearance in spleen with a small calcified granuloma 
-•Spleen and pancreas are normal with no S.O.L. 
-•The kidneys has normal size and shape without space occupying lesion.
-•There is a large renal stone in diameter of 15mm in neck of gall bladder mesenteric calcification are seen .
-•No paraaortic adenopathy is present.
-•Pelvic organs are normal .
-•There is no abdominopelvic free fluid.
-•Fat contain right  side ingu9inal hernia is seen 
-•Calcified mesenteric lymph nodes are also seen .
-•In limited view of chest :
-•Subpleural fibrotic band in right lung  is seen 
-•Bilateral atelectatic changes are evident.
-•There are some focal patchy ground glass opacity in periphery of both lungs
-			
-IMP: Normal abdominopelvic MDCT Scan 
+Abdominopelvic CT without Intravenous Contrast (Non contrast CT)
+Technique
+Axial non contrast MDCT images were obtained from the dome of the diaphragm to the symphysis pubis. Oral contrast was not administered.
+Findings
+•	Liver and biliary system: The liver is normal in size and density; no focal high density stone or calcification is seen. Gallbladder and bile ducts are not dilated. Contrast cannot assess for enhancement, so evaluation for mass lesions is limited.
+•	Spleen, pancreas and adrenal glands: Appear normal in size and density.
+•	Kidneys and urinary tract: Kidneys are normal in size and contour without obvious calculus or hydronephrosis. Ureters are not dilated. Bladder has normal wall thickness.
+•	Bowel: The visualized stomach and bowel loops show no obstruction, perforation or pneumatosis. Due to absence of contrast, mucosal details and subtle inflammation are not assessed.
+•	Reproductive organs: Uterus and ovaries (or prostate/seminal vesicles) appear unremarkable.
+•	Peritoneal cavity: No free intraperitoneal gas or high attenuation fluid. Mild low density fluid may reflect physiologic fluid.
+•	Bones and soft tissues: Visualized spine and pelvic bones show no fracture or lytic lesions.
+Impression
+Non contrast CT of the abdomen and pelvis demonstrates no acute abnormality. Evaluation for subtle parenchymal lesions is limited in the absence of intravenous contrast, but there is no evidence of obstruction, perforation or urolithiasis.
 
+]
