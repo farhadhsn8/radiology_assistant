@@ -3,6 +3,9 @@
 *.log
 *.mp3
 *.m4a
+*.wav
 radio/
 __pycache__/
 Language/
+assets/voices/*_lid.wav
+assets/voices/*.wav
