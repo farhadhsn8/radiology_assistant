@@ -1,0 +1,5 @@
+. سونوگرافی بررسی رشد جنین (Fetal Growth / Late Pregnancy)
+Findings: جنین زنده با پرزانتاسیون Cephalic (یا Breech) رویت شد. ضربان قلب جنین (FHR) نرمال و منظم است. حرکات جنین (Fetal Movement) و تونسیته عضلانی طبیعی است.
+Placenta & Fluid: جفت در موقعیت (Anterior/Posterior/Fundal) قرار دارد و گرید آن متناسب با سن حاملگی است. فاصله لبه تحتانی جفت تا دهانه رحم (Internal Os) در حد نرمال است (Placenta Previa رد شد). حجم مایع آمنیوتیک (Amniotic Fluid Index - AFI) در محدوده نرمال قرار دارد.
+Biometry: BPD (Biparietal Diameter): ... mm HC (Head Circumference): ... mm AC (Abdominal Circumference): ... mm FL (Femur Length): ... mm
+Conclusion: سن تقریبی حاملگی بر اساس پارامترهای بیومتریک معادل ... هفته و ... روز می‌باشد. وزن تخمینی جنین (EFW): ... گرم.

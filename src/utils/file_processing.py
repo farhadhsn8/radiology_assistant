@@ -21,7 +21,6 @@ def extract_field_from_json(text, field_name):
     match = re.search(pattern, text, re.DOTALL)
     if match:
         final_report = match.group(1)
-        # Unescape any escaped characters like \n
         final_report = final_report.encode().decode('unicode_escape').replace('â¢', '•')
         return final_report
     else:
@@ -32,7 +31,6 @@ def parse_report_for_filename(report: str) -> tuple[str, str, str]:
     """Parse report to extract modality, contrast, and anatomy."""
     report_lower = report.lower()
     
-    # Detect modality
     if "ct" in report_lower:
         modality = "ct"
     elif "mri" in report_lower:
@@ -42,10 +40,8 @@ def parse_report_for_filename(report: str) -> tuple[str, str, str]:
     else:
         modality = "unknown"
     
-    # Detect contrast
     contrast = "contrast" if "contrast" in report_lower else "no_contrast"
     
-    # Detect anatomy (basic, can be extended)
     anatomy = "unknown"
     if "brain" in report_lower:
         anatomy = "brain"
@@ -56,18 +52,17 @@ def parse_report_for_filename(report: str) -> tuple[str, str, str]:
     
     return modality, contrast, anatomy
 
+
+
 def generate_meaningful_filename(report_type: str = None, report: str = None, extension: str = "mp3") -> str:
     """Generate a meaningful filename based on report_type or report content."""
     if report:
-        # Use report content if available
         modality, contrast, anatomy = parse_report_for_filename(report)
         base_name = f"{modality}_{contrast}_{anatomy}"
     else:
-        # Fallback to report_type
         parts = report_type.split(":") if report_type else ["unknown"]
         safe_parts = [part.lower().replace(" ", "_") for part in parts]
         base_name = "_".join(safe_parts)
-    
-    # Append timestamp for uniqueness
+
     timestamp = int(time.time())
     return f"{base_name}_{timestamp}.{extension}"

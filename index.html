@@ -60,51 +60,71 @@
       font-size: 0.9em;
       color: #666;
     }
+    /* فقط جهت نمایش گزارش بر اساس زبان انتخابی */
+    .rtl-report {
+      direction: rtl;
+      unicode-bidi: plaintext;
+      text-align: right;
+    }
+    .ltr-report {
+      direction: ltr;
+      unicode-bidi: plaintext;
+      text-align: left;
+    }
   </style>
 </head>
 <body>
   <div class="form-container shadow">
     <h3 class="mb-4 text-center">Radiologist Report</h3>
-    <form id="reportForm">
-      <!-- <div class="mb-3">
-        <label for="reportType" class="form-label">Select Report Type</label>
-        <select class="form-select" id="reportType" name="reportType" required>
-          <option value="" disabled selected>Choose a report type</option>
-          
-          <option value="CT:contrast:abdomen_and_pelvis">CT: Contrast: Abdomen and Pelvis</option>
-          <option value="CT:contrast:Brain">CT: Contrast: Brain</option>
-          <option value="CT:contrast:Chest">CT: Contrast: Chest</option>
-          <option value="CT:contrast:Multislice_Neck">CT: Contrast: Multislice Neck</option>
 
-          <option value="CT:no_contrast:Abdominopelvic">CT: No Contrast: Abdominopelvic</option>
-          <option value="CT:no_contrast:Brain">CT: No Contrast: Brain</option>
-          <option value="CT:no_contrast:Chest">CT: No Contrast: Chest</option>
-          <option value="CT:no_contrast:Wrist_3D">CT: No Contrast: Wrist_3D</option>
+    <form id="reportForm">
+      <!-- انتخاب زبان وویس -->
+      <div class="mb-3">
+        <label for="languageSelect" class="form-label">Voice Language</label>
+        <select class="form-select" id="languageSelect" required>
+          <option value="" disabled selected>Select language</option>
+          <option value="en">English </option>
+          <option value="fa">فارسی </option>
         </select>
-      </div> -->
+      </div>
 
       <div class="mb-3">
-        <label class="form-label d-block">Upload Voice Report (MP3)</label>
-        <input type="file" id="audioUpload" accept="audio/mp3,audio/*" class="d-none" />
-        <button type="button" class="btn btn-primary" id="uploadButton">Choose File</button>
+        <label class="form-label d-block">Upload Voice Report (any audio)</label>
+        <input
+          type="file"
+          id="audioUpload"
+          accept="audio/*"
+          class="d-none"
+        />
+        <button type="button" class="btn btn-primary" id="uploadButton">
+          Choose File
+        </button>
         <div id="fileInfo" class="file-info"></div>
       </div>
 
       <div class="mb-3">
         <label class="form-label d-block">Or Record Voice Report</label>
-        <button type="button" class="btn btn-warning" id="recordButton">Start Recording</button>
+        <button type="button" class="btn btn-warning" id="recordButton">
+          Start Recording
+        </button>
         <div id="recordStatus" class="file-info"></div>
       </div>
 
       <input type="hidden" name="audioData" id="audioData" />
-      <button type="submit" class="btn btn-success w-100" id="submitBtn" disabled>Submit Report</button>
+      <button type="submit" class="btn btn-success w-100" id="submitBtn" disabled>
+        Submit Report
+      </button>
+
+      <div id="status"></div>
     </form>
   </div>
 
   <div class="response-container" id="responseContainer" style="display:none;">
     <h5 class="mb-3">Report Response</h5>
     <textarea id="reportResponse" readonly></textarea>
-    <button class="btn btn-outline-secondary mt-2" id="copyBtn">Copy to Clipboard</button>
+    <button class="btn btn-outline-secondary mt-2" id="copyBtn">
+      Copy to Clipboard
+    </button>
   </div>
 
   <!-- Bootstrap JS Bundle CDN -->
@@ -122,19 +142,20 @@
     const responseContainer = document.getElementById('responseContainer');
     const reportResponse = document.getElementById('reportResponse');
     const copyBtn = document.getElementById('copyBtn');
+    const statusEl = document.getElementById('status');
+    const languageSelect = document.getElementById('languageSelect');
+
+    const BASE_URL = "http://127.0.0.1:5682";
 
     let mediaRecorder;
     let recordedChunks = [];
 
-    // Disable submit initially
     submitBtn.disabled = true;
 
-    // Upload file button triggers file input
     uploadButton.addEventListener('click', () => {
       audioUpload.click();
     });
 
-    // When user selects a file
     audioUpload.addEventListener('change', async (e) => {
       if (mediaRecorder && mediaRecorder.state === 'recording') {
         alert('Stop recording before uploading a file.');
@@ -145,20 +166,24 @@
       const file = e.target.files[0];
       if (!file) return;
 
-      if (!file.type.startsWith('audio/')) {
-        alert('Please select an audio file.');
+      const name = (file.name || "").toLowerCase();
+      const mime = file.type || "";
+      const allowedExt = [".mp3", ".wav", ".ogg", ".m4a", ".webm"];
+
+      const isAudioByMime = mime.startsWith("audio/");
+      const isAudioByExt = allowedExt.some(ext => name.endsWith(ext));
+
+      if (!isAudioByMime && !isAudioByExt) {
+        alert('Please select an audio file (mp3, wav, ogg, m4a, webm).');
         audioUpload.value = '';
         return;
       }
 
-      // Clear previous recording data
       recordedChunks = [];
       recordStatus.textContent = '';
 
-      // Show file info
       fileInfo.textContent = `Selected: ${file.name} (${(file.size / 1024).toFixed(1)} KB)`;
 
-      // Read file as base64
       const reader = new FileReader();
       reader.onload = (event) => {
         audioDataInput.value = event.target.result;
@@ -167,10 +192,8 @@
       reader.readAsDataURL(file);
     });
 
-    // Recording button logic
     recordButton.addEventListener('click', async () => {
       if (mediaRecorder && mediaRecorder.state === 'recording') {
-        // Stop recording
         mediaRecorder.stop();
         recordButton.textContent = 'Start Recording';
         recordStatus.textContent = 'Processing recording...';
@@ -227,13 +250,18 @@
         return;
       }
 
+      if (!languageSelect.value) {
+        alert('Please select voice language (EN/FA).');
+        return;
+      }
+
       submitBtn.disabled = true;
       recordButton.disabled = true;
       uploadButton.disabled = true;
       audioUpload.disabled = true;
       fileInfo.textContent = '';
       recordStatus.textContent = '';
-      status.textContent = 'Submitting report...';
+      statusEl.textContent = 'Submitting report...';
 
       try {
         // Convert base64 audio to Blob
@@ -242,14 +270,21 @@
         const formData = new FormData();
         formData.append('input_voice', audioBlob, 'recording.webm');
 
-        const url ="http://127.0.0.1:5682/api/voice/gen_report"
+        // انتخاب endpoint بر اساس زبان
+        let endpoint;
+        if (languageSelect.value === 'fa') {
+          endpoint = '/api/reports/fa/voice';
+        } else {
+          endpoint = '/api/voice/gen_report';
+        }
+
+        const url = BASE_URL + endpoint;
 
         const headers = {
-          'radio': 'WGhgR5dOAEc34MI0Zpi5C2Y3LyjwT9Ex',
+          'radio': 'WGhgR5dOAEc34MI0Zpi5C2Y3LyjwT9Ex', // همان API key header
         };
 
-
-        const response = await fetch(`${url}`, {
+        const response = await fetch(url, {
           method: 'POST',
           headers: headers,
           body: formData
@@ -263,10 +298,20 @@
         const result = resultJson.generated_report;
 
         reportResponse.value = result;
+
+        // فقط جهت نمایش متن گزارش را بر اساس زبان تنظیم می‌کنیم
+        if (languageSelect.value === 'fa') {
+          reportResponse.classList.add('rtl-report');
+          reportResponse.classList.remove('ltr-report');
+        } else {
+          reportResponse.classList.add('ltr-report');
+          reportResponse.classList.remove('rtl-report');
+        }
+
         responseContainer.style.display = 'block';
-        status.textContent = 'Report received successfully!';
+        statusEl.textContent = 'Report received successfully!';
       } catch (error) {
-        status.textContent = 'Error submitting report: ' + error.message;
+        statusEl.textContent = 'Error submitting report: ' + error.message;
         console.error('Error:', error);
         responseContainer.style.display = 'none';
       } finally {
