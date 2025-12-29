@@ -16,7 +16,7 @@ US:no_contrast:Knee_Ultrasound
 US:no_contrast:KUB
 US:no_contrast:Liver_&_Biliay
 US:no_contrast:Lower_Limb_Arterial_Doppler
-US:no_contrast:Lower_Limb_Venous_Doppler
+US:no_contrast:DVT
 US:no_contrast:Neonatal_Brain
 US:no_contrast:Renal_Arteries_Doppler
 US:no_contrast:Salivary_Glands
