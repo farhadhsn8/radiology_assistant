@@ -1,0 +1,12 @@
+Proofread the Persian radiology report below for spelling/grammar and unnatural phrasing ONLY.
+
+Hard rules:
+1) Keep the same structure and headings.
+2) Do not add new findings or remove content unless it is an obvious typo.
+3) Do NOT change any numbers or units (digits must remain identical).
+4) Replace awkward English tokens like "Visualization/Measuring" with correct Persian ("مشاهده شد/اندازه‌گیری شد").
+5) Fix common typos such as تهانی->تحتانی, هفته->هفتم (context-aware), رااست->راست.
+6) Fix common deficit instead of adding ه in persian words (based on sentence meanings)
+7) Output ONLY the final report text.
+
+
