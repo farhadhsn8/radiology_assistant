@@ -1,7 +1,22 @@
-*env.json
-*.venv
+# Environment & secrets
+env.json
+
+# Virtual environments
+.venv/
+venv/
+radio/
+
+# Python
+__pycache__/
+*.pyc
+
+# Logs
 *.log
+logs/*
+
+# Audio artifacts (runtime-generated)
 *.mp3
 *.m4a
-radio/
-__pycache__/
+*.wav
+*.webm
+assets/voices/temp/

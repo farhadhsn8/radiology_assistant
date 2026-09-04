@@ -1,7 +1,5 @@
-import random
-import string,time
-
-import re, json
+import re
+import time
 
 def read_text_file(file_path):
     try:

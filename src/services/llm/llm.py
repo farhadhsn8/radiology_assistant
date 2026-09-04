@@ -1,30 +1,21 @@
-from langchain_openai import ChatOpenAI 
-import json 
+from langchain_openai import ChatOpenAI
+
+from src.config import get_llm_config
 
 
-
-class llm:
+class LLM:
     def __init__(self) -> None:
-        with open('env.json', 'r') as config_file:
-            self.configs = json.load(config_file)["models"]["llm"]
+        config = get_llm_config()
         self.client = ChatOpenAI(
-            model=self.configs["model_name"],
-            base_url=self.configs["base_url"],
-            temperature=self.configs["temperature"],
-            api_key=self.configs["api_key"]
-            # openai_proxy="socks5://127.0.0.1:12334"
+            model=config["model_name"],
+            base_url=config["base_url"],
+            temperature=config["temperature"],
+            api_key=config["api_key"],
         )
 
-    
-    def get_answer(self, inp_text: str, prompt: str)-> str:
+    def get_answer(self, input_text: str, system_prompt: str) -> str:
         final_prompt = [
-            {"role": "system", "content": prompt},
-            {"role": "user", "content": inp_text}
+            {"role": "system", "content": system_prompt},
+            {"role": "user", "content": input_text},
         ]
-        
         return self.client.invoke(final_prompt).content
-
-         
-
-
-
