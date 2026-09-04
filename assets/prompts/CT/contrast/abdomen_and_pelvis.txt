@@ -4,7 +4,7 @@ Your task is to generate a complete patient report using the provided template, 
 
 your output should be in format of this json. in the field of final_report just write a plane text like template format:
 {
-    final_report: **
+    "final_report": "**"
 }
 
 

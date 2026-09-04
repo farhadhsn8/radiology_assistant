@@ -8,3 +8,4 @@ uvicorn
 transformers
 python-multipart
 pydub
+natsort

@@ -6,12 +6,12 @@ import json
 class llm:
     def __init__(self) -> None:
         with open('env.json', 'r') as config_file:
-            self.configs = json.load(config_file)["llm"]
+            self.configs = json.load(config_file)["models"]["llm"]
         self.client = ChatOpenAI(
-            model = self.configs["model_name"],
-            base_url=self.configs['base_url'],
-            temperature = self.configs["temperature"],
-            api_key=self.configs['api_key'],
+            model=self.configs["model_name"],
+            base_url=self.configs["base_url"],
+            temperature=self.configs["temperature"],
+            api_key=self.configs["api_key"]
             # openai_proxy="socks5://127.0.0.1:12334"
         )
 

@@ -1,0 +1,11 @@
+Chest CT with Pulmonary Thromboembolism (PTE) Protocol
+Technique
+Fine slice CT pulmonary angiography (CTPA) was performed from the lung apices to the costophrenic angles during the pulmonary arterial phase after bolus injection of iodinated contrast. Images were reconstructed in lung and soft tissue windows.
+Findings
+•	Pulmonary arteries: Central and segmental pulmonary arteries opacify normally with no intraluminal filling defects, thrombi or flow limitation.
+•	Heart and mediastinum: Cardiac chambers and great vessels are normal. No mediastinal lymphadenopathy or mass.
+•	Lungs and airways: Lung parenchyma shows no infarcts, consolidation or nodules. Airways are patent.
+•	Pleura and upper abdomen: No pleural effusion or pneumothorax. Upper abdominal organs have normal arterial phase appearance.
+•	Bones: No acute rib or vertebral fractures.
+Impression
+Negative CTPA. No pulmonary embolus is identified. Normal cardiomediastinal structures and lungs.
